@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import {
   ColumnDef,
@@ -13,7 +14,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Mail, Plus, UserCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -108,9 +109,9 @@ export const columns = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button variant="ghost" className="p-0 w-8 h-8">
               <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
+              <MoreHorizontal className="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -232,11 +233,35 @@ function Leads() {
 
   return (
     <div className="w-full max-w-5xl">
-      <div className="flex items-center py-4 justify-end gap-4">
-        <Button onClick={handleBulkGenerateEmail}>
-          Generate all personalized email
-        </Button>
-        <Button onClick={handleAddLeads}>Add Leads</Button>
+      <div className="flex justify-between items-center py-4">
+        <div className="flex gap-2 items-start">
+          <div className="flex items-center">
+            <UserCheck className="w-6 h-6 text-blue-600" />
+          </div>
+          <div className="flex flex-col items-start">
+            <span className="font-semibold text-blue-600">
+              Email Personalization
+            </span>
+            <span className="text-xs text-gray-500">
+              By
+              <a
+                href="https://nubela.co/proxycurl"
+                target="_blank"
+                className="underline ms-1"
+              >
+                Proxycurl
+              </a>
+            </span>
+          </div>
+        </div>
+        <div className="flex gap-4">
+          <Button variant="outline" onClick={handleAddLeads}>
+            <Plus className="w-4 h-4" /> Add Leads
+          </Button>
+          <Button onClick={handleBulkGenerateEmail}>
+            <Mail className="w-4 h-4" /> Generate all personalized email
+          </Button>
+        </div>
       </div>
       <div className="rounded-md border">
         <Table className="w-full">
@@ -250,7 +275,7 @@ function Leads() {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   );
@@ -269,7 +294,7 @@ function Leads() {
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}
@@ -281,18 +306,35 @@ function Leads() {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  <span>No Leads yet.</span>
-                  <br />
-                  <Button className="mt-4" onClick={handleAddLeads}>
-                    Add Leads
-                  </Button>
+                  <div className="flex flex-col justify-center items-center py-16 h-full">
+                    <Image
+                      src="/Illustration_landscape_placement.png"
+                      alt="empty illustration"
+                      width={400}
+                      height={400}
+                      className="mb-4 rounded-md"
+                    />
+
+                    <p className="text-gray-500">
+                      No leads found. Add LinkedIn profile URLs to start
+                      personalizing emails.
+                    </p>
+
+                    <Button
+                      variant="outline"
+                      className="mt-4"
+                      onClick={handleAddLeads}
+                    >
+                      <Plus className="w-4 h-4" /> Add Leads
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex justify-end items-center py-4 space-x-2">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.

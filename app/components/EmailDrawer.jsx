@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Mail } from "lucide-react";
 
 function EmailDrawer({
   isOpen,
@@ -123,7 +124,7 @@ Hi <FIRST_NAME>
             </i>
           </span>
           <Link
-            className="text-blue-500 hover:text-blue-600 text-sm underline"
+            className="text-sm text-blue-500 underline hover:text-blue-600"
             href="https://nubela.co/proxycurl/docs#people-api-person-profile-endpoint"
             target="_blank"
           >
@@ -148,7 +149,8 @@ Hi <FIRST_NAME>
             </div>
           )}
           <Button onClick={handleSubmit}>
-            {isLoading ? "Generating..." : "Generate personalized email"}
+            {isLoading ? "Generating..." : <Mail className="w-4 h-4" />}
+            Generate personalized email
           </Button>
           {generatedEmails.length > 0 && (
             <>

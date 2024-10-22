@@ -12,13 +12,13 @@ const ProfileDetailsModal = ({ isOpen, setIsOpen, viewDetails }) => {
   if (!viewDetails) return null;
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="max-w-5xl">
+      <DialogContent className="max-w-3xl">
         <DialogTitle>
           <span className="truncate">{`${viewDetails.full_name} - ${viewDetails.headline}`}</span>
         </DialogTitle>
         <DialogHeader>
           <DialogDescription>
-            <span className="truncate text-sm">
+            <span className="text-sm truncate">
               <span>
                 {viewDetails.city && viewDetails.city}
               </span>
@@ -33,14 +33,14 @@ const ProfileDetailsModal = ({ isOpen, setIsOpen, viewDetails }) => {
 
             {viewDetails.experiences.length > 0 && (
               <>
-                <h2 className="text-lg font-bold mt-6 mb-2">Experiences</h2>
+                <h2 className="mt-6 mb-2 text-lg font-bold">Experiences</h2>
 
                 <div className="flex flex-col gap-2">
                   {viewDetails.experiences.map((experience, index) => (
                     <div key={experience.title}>
                       <span
                         key={index}
-                        className="block text-sm text-gray-600 font-semibold"
+                        className="block text-sm font-semibold text-gray-600"
                       >{`${experience.title} at ${experience.company}`}</span>
                       <span className="block text-sm text-gray-500">
                         {experience.starts_at?.day &&
@@ -58,13 +58,13 @@ const ProfileDetailsModal = ({ isOpen, setIsOpen, viewDetails }) => {
 
             {viewDetails.education.length > 0 && (
               <>
-                <h2 className="text-lg font-bold mt-6 mb-2">Education</h2>
+                <h2 className="mt-6 mb-2 text-lg font-bold">Education</h2>
                 <div className="flex flex-col gap-2">
                   {viewDetails.education.map((education, index) => (
                     <div key={education.degree_name}>
                       <span
                         key={index}
-                        className="block text-sm text-gray-600 font-semibold"
+                        className="block text-sm font-semibold text-gray-600"
                       >{`${education.degree_name} in ${education.field_of_study} at ${education.school}`}</span>
                       <span className="block text-sm text-gray-500">
                         {education.starts_at?.day &&
