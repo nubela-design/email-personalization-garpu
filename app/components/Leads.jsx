@@ -39,6 +39,8 @@ import {
 import Modal from "./Modal";
 import ProfileDetailsModal from "./ProfileDetailsModal";
 import EmailDrawer from "./EmailDrawer";
+import GeneratedEmailsGallery from "./GeneratedEmailsGallery";
+
 export const columns = [
   {
     id: "select",
@@ -147,6 +149,7 @@ function Leads() {
   const [isEmailDrawerOpen, setIsEmailDrawerOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isBulkEmail, setIsBulkEmail] = useState(false);
+  const [generatedEmails, setGeneratedEmails] = useState([]);
 
   const handleSaveRecentLeads = (profiles) => {
     const existingLeads =
@@ -200,6 +203,12 @@ function Leads() {
     setData(existingLeads);
   }, []);
 
+  useEffect(() => {
+    setGeneratedEmails(
+      JSON.parse(localStorage.getItem("generatedEmails")) || []
+    );
+  }, []);
+
   const handleBulkGenerateEmail = () => {
     // setIsLoading(true);
     setIsBulkEmail(true);
@@ -236,7 +245,13 @@ function Leads() {
       <div className="flex flex-col justify-between items-start py-4 space-y-4 pt-md-8 sm:flex-row sm:items-center sm:space-y-0">
         <div className="flex gap-2 items-start">
           <div className="flex items-center">
-            <UserCheck className="w-6 h-6 text-blue-600" />
+            <Image
+              src="/email-logo-dummy.svg"
+              alt="Email logo"
+              width={24}
+              height={24}
+              className="text-blue-600"
+            />
           </div>
           <div className="flex flex-col items-start">
             <span className="font-semibold text-blue-600">
@@ -351,6 +366,10 @@ function Leads() {
           >
             Previous
           </Button>
+          <span className="text-sm text-gray-500">
+            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </span>
           <Button
             variant="outline"
             size="sm"
@@ -361,6 +380,9 @@ function Leads() {
           </Button>
         </div>
       </div>
+
+      {/* Add the gallery below the table */}
+      <GeneratedEmailsGallery generatedEmails={generatedEmails} />
 
       <Modal
         isOpen={isModalOpen}
@@ -383,6 +405,7 @@ function Leads() {
         setSelectedLead={setSelectedLead}
         isOpen={isEmailDrawerOpen}
         setIsOpen={setIsEmailDrawerOpen}
+        setGeneratedEmails={setGeneratedEmails}
       />
     </div>
   );

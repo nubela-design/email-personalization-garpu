@@ -24,9 +24,9 @@ function EmailDrawer({
   data,
   isBulkEmail,
   setIsBulkEmail,
+  setGeneratedEmails,
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [generatedEmails, setGeneratedEmails] = useState([]);
 
   useEffect(() => {
     setGeneratedEmails(
@@ -152,26 +152,6 @@ Hi <FIRST_NAME>
             {isLoading ? "Generating..." : <Mail className="w-4 h-4" />}
             Generate personalized email
           </Button>
-          {generatedEmails.length > 0 && (
-            <>
-              {generatedEmails.map((email, index) => (
-                <div key={index} className="flex flex-col">
-                  <Textarea
-                    value={email}
-                    className="h-[200px] overflow-y-auto"
-                    disabled
-                  />
-
-                  <Button
-                    className="my-2 ml-auto w-24"
-                    onClick={() => handleCopy(index)}
-                  >
-                    {index === copiedIndex ? "Copied" : "Copy"}
-                  </Button>
-                </div>
-              ))}
-            </>
-          )}
         </div>
       </SheetContent>
     </Sheet>
